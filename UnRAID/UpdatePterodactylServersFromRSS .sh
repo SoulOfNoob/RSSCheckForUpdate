@@ -50,8 +50,6 @@ for server in ${server[@]}; do
 				if $UNRAID; then /usr/local/emhttp/webGui/scripts/notify -s "Restarting ${NAME} Server Failed" -d "" -e "UpdatePterodactylServersFromRSS" -i "alert"; fi
 			fi
 		fi
-	else
-		# echo "Do nothing"
 	fi
 done
 
