@@ -1,0 +1,17 @@
+{
+  "name": "rss_check_for_update",
+  "version": "1.0.0",
+  "description": "checks the last RSS item against locally stored one to trigger server updates",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rss"
+  ],
+  "author": "SoulOfNoob",
+  "license": "ISC",
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
+}
