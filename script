@@ -1,6 +1,6 @@
 #!/bin/bash
 
-UNRAID_SCRIPT_LOCATION="/mnt/user/SSD/scripts/RSSCheckForUpdate"
+UNRAID_SCRIPT_LOCATION="/boot/config/plugins/user.scripts/scripts/RSSCheckForUpdate"
 
 # Name;GameID;ContainerID
 server=(
