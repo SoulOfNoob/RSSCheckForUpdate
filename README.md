@@ -26,7 +26,7 @@ Currently configured for:
 1. Clone the repository in to unraid user scripts directory:
 
     ```bash
-    cs /boot/config/plugins/user.scripts/scripts
+    cd /boot/config/plugins/user.scripts/scripts
     git clone https://github.com/SoulOfNoob/RSSCheckForUpdate.git
     ```
 
@@ -36,6 +36,10 @@ Currently configured for:
     cd /boot/config/plugins/user.scripts/scripts/RSSCheckForUpdate/js
     npm install
     ```
+
+3. Configure the script as needed (see Configuration section).
+
+4. Set up Cron job or UnRAID user script to run the update script periodically.
 
 ## Usage
 
