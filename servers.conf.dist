@@ -1,0 +1,7 @@
+# Copy this file to servers.conf and adjust it to your servers.
+# One line per game server: Name;GameID;ContainerID
+#   Name         Display name for logs/notifications
+#   GameID       Steam app ID used for the RSS URL
+#   ContainerID  Container ID (or unique part of it) as shown by "docker ps"
+Satisfactory;526870;f869f8e6
+ARK;346110;f92600c9

@@ -37,22 +37,30 @@ Currently configured for:
     npm install
     ```
 
-3. Configure the script as needed (see Configuration section).
+3. Create your server list (see Configuration section):
 
-4. Set up Cron job or UnRAID user script to run the update script periodically.
+    ```bash
+    cd /boot/config/plugins/user.scripts/scripts/RSSCheckForUpdate
+    cp servers.conf.dist servers.conf
+    ```
+
+4. Configure the script as needed (see Configuration section).
+
+5. Set up Cron job or UnRAID user script to run the update script periodically.
 
 ## Usage
 
 ### Basic RSS Check
 
 ```bash
-node js/app.js <RSS_URL> [CUSTOM_SUFFIX]
+node js/app.js <RSS_URL> [CUSTOM_SUFFIX] [APP_DIR]
 ```
 
 **Parameters:**
 
 - `RSS_URL`: The RSS feed URL to monitor
-- `CUSTOM_SUFFIX` (optional): A custom suffix for the cache file
+- `CUSTOM_SUFFIX` (optional): A custom suffix for the cache file (pass `""` to skip it while setting `APP_DIR`)
+- `APP_DIR` (optional): Directory where the `localStorage` cache folder is created. Defaults to the `js/` directory. Use it when the script directory is not writable.
 
 **Example:**
 
@@ -82,15 +90,17 @@ This script will:
 
 ## Configuration
 
+### Cache Location
+
+On UnRAID the cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStorage` (change `UNRAID_APPDATA_LOCATION` at the top of `script` to use another writable directory). On any other host, e.g. for local testing, it is stored in `localStorage/` next to `script`.
+
 ### Adding New Games
 
-Edit the `server` array in `UnRAID/UpdatePterodactylServersFromRSS .sh`:
+Servers are listed in `servers.conf` next to `script`. The file is gitignored, so `git pull` never overwrites it. Use `servers.conf.dist` as a template. One line per server, empty lines and `#` comments are ignored:
 
-```bash
-server=(
-    'GameName;SteamGameID;ContainerID'
-    'Satisfactory;526870;f869f8e6'
-    'ARK;346110;f92600c9'
-    'YourGame;123456;container_id'
-)
+```text
+# Name;SteamGameID;ContainerID
+Satisfactory;526870;f869f8e6
+ARK;346110;f92600c9
+YourGame;123456;container_id
 ```

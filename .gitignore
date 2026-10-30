@@ -1,2 +1,4 @@
 .DS_Store
-js/localStorage/*
+localStorage
+servers.conf
+js/node_modules
