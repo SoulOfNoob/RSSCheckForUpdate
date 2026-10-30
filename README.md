@@ -37,9 +37,16 @@ Currently configured for:
     npm install
     ```
 
-3. Configure the script as needed (see Configuration section).
+3. Create your server list (see Configuration section):
 
-4. Set up Cron job or UnRAID user script to run the update script periodically.
+    ```bash
+    cd /boot/config/plugins/user.scripts/scripts/RSSCheckForUpdate
+    cp servers.example.conf servers.conf
+    ```
+
+4. Configure the script as needed (see Configuration section).
+
+5. Set up Cron job or UnRAID user script to run the update script periodically.
 
 ## Usage
 
@@ -89,13 +96,11 @@ The cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStorage` by def
 
 ### Adding New Games
 
-Edit the `server` array in `UnRAID/UpdatePterodactylServersFromRSS .sh`:
+Servers are listed in `servers.conf` next to `script`. The file is gitignored, so `git pull` never overwrites it. Use `servers.example.conf` as a template. One line per server, empty lines and `#` comments are ignored:
 
-```bash
-server=(
-    'GameName;SteamGameID;ContainerID'
-    'Satisfactory;526870;f869f8e6'
-    'ARK;346110;f92600c9'
-    'YourGame;123456;container_id'
-)
+```text
+# Name;SteamGameID;ContainerID
+Satisfactory;526870;f869f8e6
+ARK;346110;f92600c9
+YourGame;123456;container_id
 ```
