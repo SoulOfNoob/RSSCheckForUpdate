@@ -46,13 +46,14 @@ Currently configured for:
 ### Basic RSS Check
 
 ```bash
-node js/app.js <RSS_URL> [CUSTOM_SUFFIX]
+node js/app.js <RSS_URL> [CUSTOM_SUFFIX] [APP_DIR]
 ```
 
 **Parameters:**
 
 - `RSS_URL`: The RSS feed URL to monitor
-- `CUSTOM_SUFFIX` (optional): A custom suffix for the cache file
+- `CUSTOM_SUFFIX` (optional): A custom suffix for the cache file (pass `""` to skip it while setting `APP_DIR`)
+- `APP_DIR` (optional): Directory where the `localStorage` cache folder is created. Defaults to the `js/` directory. Use it when the script directory is not writable.
 
 **Example:**
 
@@ -81,6 +82,10 @@ This script will:
 4. Send UnRAID notifications (if running on UnRAID)
 
 ## Configuration
+
+### Cache Location
+
+Set `APP_DIR` at the top of `script` (or as an environment variable) to a writable directory, e.g. `/mnt/user/appdata/RSSCheckForUpdate`. Leave it empty to keep the cache in `js/localStorage`.
 
 ### Adding New Games
 
