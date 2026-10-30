@@ -92,7 +92,7 @@ This script will:
 
 ### Cache Location
 
-The cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStorage` by default. Change `APP_DIR` at the top of `script` to use another writable directory; set it to `""` to keep the cache in `js/localStorage`.
+On UnRAID the cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStorage` (change `UNRAID_APPDATA_LOCATION` at the top of `script` to use another writable directory). On any other host, e.g. for local testing, it is stored in `localStorage/` next to `script`.
 
 ### Adding New Games
 
