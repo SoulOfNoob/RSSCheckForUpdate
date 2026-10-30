@@ -41,7 +41,7 @@ Currently configured for:
 
     ```bash
     cd /boot/config/plugins/user.scripts/scripts/RSSCheckForUpdate
-    cp servers.example.conf servers.conf
+    cp servers.conf.dist servers.conf
     ```
 
 4. Configure the script as needed (see Configuration section).
@@ -96,7 +96,7 @@ On UnRAID the cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStora
 
 ### Adding New Games
 
-Servers are listed in `servers.conf` next to `script`. The file is gitignored, so `git pull` never overwrites it. Use `servers.example.conf` as a template. One line per server, empty lines and `#` comments are ignored:
+Servers are listed in `servers.conf` next to `script`. The file is gitignored, so `git pull` never overwrites it. Use `servers.conf.dist` as a template. One line per server, empty lines and `#` comments are ignored:
 
 ```text
 # Name;SteamGameID;ContainerID

@@ -19,7 +19,7 @@
 # host the cache is created next to this script and no notifications are sent.
 #
 # Servers (servers.conf, not tracked by git):
-#   Copy servers.example.conf to servers.conf and add one line per game server:
+#   Copy servers.conf.dist to servers.conf and add one line per game server:
 #     Name;GameID;ContainerID
 #       Name         Display name for logs/notifications
 #       GameID       Steam app ID used for the RSS URL
@@ -64,7 +64,7 @@ if ! NODE_SCRIPT_LOCATION=$(find_project_file "js/app.js"); then
 fi
 
 if ! SERVERS_FILE=$(find_project_file "servers.conf"); then
-	echo "servers.conf not found, copy servers.example.conf to servers.conf"
+	echo "servers.conf not found, copy servers.conf.dist to servers.conf"
 	exit 1
 fi
 
