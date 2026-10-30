@@ -85,7 +85,7 @@ This script will:
 
 ### Cache Location
 
-The cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStorage` by default. Change `APP_DIR` at the top of `script` (or override it via environment variable) to use another writable directory; set it to `""` to keep the cache in `js/localStorage`.
+The cache is stored in `/mnt/user/appdata/RSSCheckForUpdate/localStorage` by default. Change `APP_DIR` at the top of `script` to use another writable directory; set it to `""` to keep the cache in `js/localStorage`.
 
 ### Adding New Games
 

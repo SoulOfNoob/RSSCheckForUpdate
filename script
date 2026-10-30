@@ -10,11 +10,11 @@
 #   UNRAID_SCRIPT_LOCATION  Directory of this project on the UnRAID flash drive.
 #                           Used when js/app.js is not found next to the script
 #                           (the user scripts plugin runs a copy from /tmp).
+#
+# UnRAID notifications are sent when UnRAID's notify script is present.
 #   APP_DIR                 Directory where the "localStorage" cache folder is
 #                           created. Must be writable by the user running this
 #                           script. Set to "" to use the js/ directory.
-#                           Can be overridden from the environment:
-#                             APP_DIR=/some/other/dir ./script
 #   server                  One entry per game server: 'Name;GameID;ContainerID'
 #                             Name         Display name for logs/notifications
 #                             GameID       Steam app ID used for the RSS URL
@@ -26,7 +26,7 @@
 # Exit code: 0 when all servers were checked, 1 when js/app.js is missing.
 
 UNRAID_SCRIPT_LOCATION="/boot/config/plugins/user.scripts/scripts/RSSCheckForUpdate"
-APP_DIR="${APP_DIR-/mnt/user/appdata/RSSCheckForUpdate}"
+APP_DIR="/mnt/user/appdata/RSSCheckForUpdate"
 
 # Name;GameID;ContainerID
 server=(
@@ -35,17 +35,19 @@ server=(
 )
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-PROJECT_DIR=$(dirname "${SCRIPT_DIR}")
+NOTIFY="/usr/local/emhttp/webGui/scripts/notify"
 
 UNRAID=false
-NODE_SCRIPT_LOCATION="${PROJECT_DIR}/js/app.js"
+if [[ -x "${NOTIFY}" ]]; then
+	UNRAID=true
+fi
+
+NODE_SCRIPT_LOCATION="${SCRIPT_DIR}/js/app.js"
 if [[ ! -f "${NODE_SCRIPT_LOCATION}" ]]; then
 	NODE_SCRIPT_LOCATION="${UNRAID_SCRIPT_LOCATION}/js/app.js"
 	if [[ ! -f "${NODE_SCRIPT_LOCATION}" ]]; then
 		echo "RSS Script not found"
 		exit 1
-	else
-		UNRAID=true
 	fi
 fi
 
@@ -67,14 +69,14 @@ for entry in "${server[@]}"; do
 		CONTAINER_ID="$(docker ps | grep "${CONTAINER_NAME}" | awk '{print $1}')" && echo "${CONTAINER_ID}"
 		if [[ -z "${CONTAINER_ID}" ]]; then
 			echo "Error: Container ID for ${NAME} (${CONTAINER_NAME}) not found. Exiting."
-#			if ${UNRAID}; then /usr/local/emhttp/webGui/scripts/notify -s "Container Not Found" -d "Server: ${NAME} Container: ${CONTAINER_NAME}" -e "UpdatePterodactylServersFromRSS" -i "warning"; fi
+#			if ${UNRAID}; then "${NOTIFY}" -s "Container Not Found" -d "Server: ${NAME} Container: ${CONTAINER_NAME}" -e "UpdatePterodactylServersFromRSS" -i "warning"; fi
 		else
 			if docker restart "${CONTAINER_ID}"; then
 				echo "Restarted!"
-				if ${UNRAID}; then /usr/local/emhttp/webGui/scripts/notify -s "Restarted ${NAME} Server" -d "Container: [${CONTAINER_ID}]" -e "UpdatePterodactylServersFromRSS" -i "normal"; fi
+				if ${UNRAID}; then "${NOTIFY}" -s "Restarted ${NAME} Server" -d "Container: [${CONTAINER_ID}]" -e "UpdatePterodactylServersFromRSS" -i "normal"; fi
 			else
 				echo "Restart Failed!"
-				if ${UNRAID}; then /usr/local/emhttp/webGui/scripts/notify -s "Restarting ${NAME} Server Failed" -d "Container: [${CONTAINER_ID}]" -e "UpdatePterodactylServersFromRSS" -i "warning"; fi
+				if ${UNRAID}; then "${NOTIFY}" -s "Restarting ${NAME} Server Failed" -d "Container: [${CONTAINER_ID}]" -e "UpdatePterodactylServersFromRSS" -i "warning"; fi
 			fi
 		fi
 	fi
